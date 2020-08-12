@@ -1,0 +1,42 @@
+<project name="proyecto_criptografia" default="run">
+<target name="compile">
+<mkdir dir="build/classes"/>
+<javac destdir="build/classes" includeantruntime="false">
+<src path="src"/>
+</javac>
+</target>
+<target name="run" depends="compile">
+<java classname="Main" classpath="build/classes" fork="true"/>
+</target>
+<target name="clean">
+<delete dir="build"/>
+</target>
+<property name="build" location="build"/>
+<property name="classes" location="${build}/tests/classes"/>
+<target name="compile-test">
+<echo>"${ant.java.version}"</echo>
+<mkdir dir="build/tests/classes"/>
+<javac destdir="build/tests/classes" includeantruntime="true">
+<src path="tests"/>
+</javac>
+</target>
+<target name="test" depends="compile-test">
+<junit>
+<classpath>
+<pathelement location="${classes}"/>
+</classpath>
+<test name="TestHello"/>
+</junit>
+</target>
+
+
+<target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/Application.jar" basedir="out/production/java-gui">
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+</project>
